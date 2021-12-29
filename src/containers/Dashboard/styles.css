@@ -1,0 +1,43 @@
+.dashboard_main_cont {
+  /* background: red; */
+  margin-top: 54px;
+  display: flex;
+}
+.dashboard_sidebar {
+  flex: 1;
+}
+/* .dashboard_left_sidebar {
+  background: green;
+} */
+.dashboard_centered_cont {
+  display: flex;
+  flex: 2;
+  justify-content: center;
+}
+/* .dashboard_right_sidebar {
+  background: yellow;
+} */
+.dashboard_centered_main_cont {
+  width: 80%;
+}
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) {
+  .dashboard_right_sidebar {
+    display: none;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) {
+  .dashboard_left_sidebar {
+    display: none;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+}

@@ -1,17 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles.css";
 import "../../App.css";
 import { connect } from "react-redux";
 import { loginHandler } from "../../redux/action/auth";
+import { Link } from "react-router-dom";
+//
 function Login(props) {
   const { loginHandler, auth, loading } = props;
-
+  const [validateMessage, setvalidateMessage] = useState("");
+  const validateMessageHandler = () => {
+    let message = "Enter all fields.";
+    setvalidateMessage(message);
+    setTimeout(() => {
+      setvalidateMessage("");
+    }, 4000);
+  };
   const onSubmitHandler = () => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     if (email && password) {
       loginHandler({ email, password });
     } else {
+      validateMessageHandler();
       console.log("onsubmit email and password empty", email, password);
     }
   };
@@ -27,7 +37,7 @@ function Login(props) {
             name="email"
             type="email"
             className="form-control"
-            placeholder="Email"
+            placeholder="Email *"
             required="required"
           />
         </div>
@@ -38,10 +48,14 @@ function Login(props) {
             name="password"
             type="password"
             className="form-control"
-            placeholder="Password"
+            placeholder="Password *"
             required="required"
           />
         </div>
+        <div className="form-group">
+          <span className="validateText">{validateMessage}</span>
+        </div>
+
         <div className="form-group">
           <button
             disabled={loading}
@@ -55,10 +69,14 @@ function Login(props) {
           {/* <label className="pull-left checkbox-inline">
             <input type="checkbox" /> Remember me
           </label> */}
-          <a href="#" disabled={loading} className="pull-right">
+          <Link
+            disabled={loading}
+            to={loading ? "" : "/signup"}
+            className="pull-right"
+          >
             Create an Account
             {/* Forgot Password? */}
-          </a>
+          </Link>
         </div>
       </div>
       {/* <p className="text-center">

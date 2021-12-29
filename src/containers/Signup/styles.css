@@ -1,4 +1,4 @@
-.login-form {
+/* .login-form {
   width: 340px;
   margin: 50px auto;
 }
@@ -19,4 +19,28 @@
 .btn {
   font-size: 15px;
   font-weight: bold;
+}
+.signUpImagePicker {
+  height: 8rem;
+  width: 8rem;
+   border: 1px solid var(--blue);
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: cover;
+} */
+.signup_image_cont {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--secondary);
+}
+.signup_image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
