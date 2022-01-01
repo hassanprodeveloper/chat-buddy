@@ -65,19 +65,19 @@ function Login(props) {
             {loading ? "Loading..." : "Log in"}
           </button>
         </div>
-        <div className="clearfix">
-          {/* <label className="pull-left checkbox-inline">
-            <input type="checkbox" /> Remember me
-          </label> */}
-          <Link
-            disabled={loading}
-            to={loading ? "" : "/signup"}
-            className="pull-right"
-          >
-            Create an Account
-            {/* Forgot Password? */}
-          </Link>
-        </div>
+        {loading ? (
+          ""
+        ) : (
+          <div className="clearfix">
+            <Link
+              disabled={loading}
+              to={loading ? "" : "/signup"}
+              className="pull-right"
+            >
+              Create an Account
+            </Link>
+          </div>
+        )}
       </div>
       {/* <p className="text-center">
         <a disabled={loading} href="#">

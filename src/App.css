@@ -2,6 +2,7 @@
   --secondary: #2b2c33;
   --secondary-light: #616161;
   --primary: #0078ca;
+  --primary-light: #0079cac9;
   --background-light: #f2f2f2;
   --white: #ffffff;
   --error: red;
@@ -11,6 +12,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  color: var(--secondary);
 }
 
 body {
@@ -26,11 +28,67 @@ body {
   border-radius: 5px;
   padding: 5px;
 }
-.flex_center {
+.flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+.mh-1 {
+  margin: 0 1rem;
+}
+.mv-1 {
+  margin: 1rem 0;
+}
+.m-1 {
+  margin: 1rem;
+}
+.align-center {
+  display: flex;
+  align-items: center;
+}
+button {
+  display: inline-block;
+  border: none;
+  padding: 0px;
+  margin: 0;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+  background: none;
+  /* transition: background 250ms ease-in-out, transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none; */
+}
+
+button:focus {
+  outline: none;
+  outline-offset: -4px;
+}
+
+button:active {
+  transform: scale(0.99);
+}
+
+/* Button styles end */
+input {
+  border: none;
+  outline: none;
+}
+input:focus {
+  border: none;
+  outline: none;
+}
+textarea {
+  border: none;
+  outline: none;
+  resize: none;
+}
+textarea:focus {
+  border: none;
+  outline: none;
+}
+
 /*  */
 
 .navbar {
@@ -63,10 +121,15 @@ body {
 .navbar_icon_wrapper {
   display: flex;
   flex: 1;
-  /* background: green; */
-  padding: 0 10rem;
+  padding: 0 2vw;
   justify-content: flex-end;
   align-items: center;
+}
+.fullScreenModal_header_main-navbar_icon_wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1rem 2rem;
 }
 .navbar__icons {
   font-size: 30px;
@@ -86,7 +149,8 @@ body {
 /* .create__first-img {
   width: 20%;
 } */
-.create__first-img span {
+.create__first-img span,
+.create-post-modal-avatar {
   display: inline-block;
   width: 45px;
   height: 45px;
@@ -94,7 +158,8 @@ body {
   overflow: hidden;
   background: var(--background-light);
 }
-.create__first-img span img {
+.create__first-img span img,
+.create-post-modal-avatar > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -143,27 +208,106 @@ body {
   bottom: 0;
   display: flex;
   flex-direction: column;
-}
-.fullScreenModal_header_main {
-  /* background: yellow; */
-  padding: 5px;
-  margin: 5px 0px;
+  overflow-y: scroll;
 }
 .fullScreenModal_body_main {
-  /* background: green; */
   display: flex;
   justify-content: center;
   align-items: center;
   flex: 1;
 }
-.fullScreenModal_card_main {
-  background: red;
-  padding: 1rem;
-  border-radius: 10px;
-}
+
 .fullScreenModal_header_icon {
   background: var(--background-light);
   border-radius: 50%;
   padding: 5px;
   margin: 5px;
+}
+/*  */
+.create-post-modal-main {
+  width: 45rem;
+  background: var(--white);
+  border-radius: 1rem;
+}
+
+.create-post-modal-header {
+  /* background: green; */
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
+}
+.create-post-modal-header-title {
+  font-weight: bold;
+  font-size: 1.8rem;
+  text-transform: capitalize;
+}
+.create-post-modal-user-name {
+  font-size: 1.6rem;
+}
+.create-post-modal-input-wrapper {
+  width: 100%;
+  padding: 5px;
+}
+.create-post-modal-input-wrapper textarea {
+  width: 100%;
+  word-wrap: break-word;
+  font-size: 2rem;
+}
+.create-post-modal-add-photo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  /* justify-content: flex-end; */
+  align-items: flex-end;
+  padding: 1rem 2rem;
+}
+.create-post-modal-CTA {
+  padding: 0.8rem 1rem;
+  background: var(--primary-light);
+  border-radius: 0.5rem;
+  text-transform: capitalize;
+  color: var(--white);
+}
+.create-post-modal-add-photo img {
+  border-radius: 0.5rem;
+  width: 100%;
+  object-fit: cover;
+  height: 30rem;
+  margin: 1rem 0;
+}
+.create-post-modal-add-photo div {
+  position: relative;
+  width: 100%;
+}
+.create-post-modal-add-photo div span {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.create-post-modal-add-post-button {
+  width: 100%;
+  font-weight: bold;
+  font-size: 1.65rem;
+}
+.create-post-modal-add-post-button-wrapper {
+  width: 100%;
+  padding: 1rem;
+}
+/* ============================media query screen ======================== */
+@media only screen and (max-width: 480px) {
+  .create-post-modal-main {
+    width: 97vw;
+  }
+  .create-post-modal-header-title {
+    font-size: 1.4rem;
+  }
+  .create-post-modal-input-wrapper textarea {
+    font-size: 1.6rem;
+  }
 }

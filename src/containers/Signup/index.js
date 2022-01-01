@@ -60,7 +60,7 @@ function Signup(props) {
     <div className="login-form">
       <div className="radius5 form-container">
         <h2 className="text-center">Create Account</h2>
-        <div className="form-group flex_center">
+        <div className="form-group flex-center">
           <label className="signup_image_cont" htmlFor="file">
             {image.base64 ? (
               <img src={image.base64} className="signup_image" />
@@ -157,18 +157,20 @@ function Signup(props) {
             {loading ? "Creating..." : "Sign up"}
           </button>
         </div>
-        <div className="clearfix">
-          {/* <label className="pull-left checkbox-inline">
+        {loading ? null : (
+          <div className="clearfix">
+            {/* <label className="pull-left checkbox-inline">
             <input type="checkbox" /> Remember me
           </label> */}
-          <Link
-            disabled={loading}
-            to={loading ? "" : "/login"}
-            className="pull-right"
-          >
-            Already hava an Account
-          </Link>
-        </div>
+            <Link
+              disabled={loading}
+              to={loading ? "" : "/login"}
+              className="pull-right"
+            >
+              Already hava an Account
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 //
 import Create from "../../components/Create";
 import FullScreenModal from "../../components/FullScreenModal";
+import CreatePostModal from "../../components/CreatePostModal";
 //
 import { logOut } from "../../redux/action/auth";
 
@@ -31,7 +32,7 @@ function Dashboard(props) {
         <div className="dashboard_sidebar dashboard_right_sidebar"></div>
       </div>
       <FullScreenModal setshow={setshowCreateModal} show={showCreateModal}>
-        <h1>create post</h1>
+        <CreatePostModal auth={auth} />
       </FullScreenModal>
     </div>
   );
