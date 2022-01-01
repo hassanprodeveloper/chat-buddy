@@ -87,21 +87,23 @@ export const register = (data) => {
                 data: {
                   displayName: name,
                   photoURL: url,
-                  email: res.user.email,
                   createdAt: res.user.createdAt,
+                  email: res.user.email,
                   emailVerified: res.user.emailVerified,
                   phoneNumber: res.user.phoneNumber,
                   uid: res.user.uid,
                 },
               });
+              await db
+                .collection("users")
+                .doc(uid)
+                .set({
+                  userInfo: {
+                    displayName: name,
+                    photoURL: url,
+                  },
+                });
               window.location.reload();
-              // db.collection("users").doc(uid).set({
-              //   displayName: name,
-              //   photoURL: url,
-              //   email: res.user.email,
-              //   phoneNumber: res.user.phoneNumber,
-              //   emailVerified: res.user.emailVerified,
-              // });
             });
         }
       );

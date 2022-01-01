@@ -273,6 +273,7 @@ textarea:focus {
   border-radius: 0.5rem;
   text-transform: capitalize;
   color: var(--white);
+  cursor: pointer;
 }
 .create-post-modal-add-photo img {
   border-radius: 0.5rem;

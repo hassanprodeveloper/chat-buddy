@@ -9,12 +9,14 @@ import FullScreenModal from "../../components/FullScreenModal";
 import CreatePostModal from "../../components/CreatePostModal";
 //
 import { logOut } from "../../redux/action/auth";
+import { setPostData, resetPostData } from "../../redux/action/createPost";
 
 function Dashboard(props) {
-  const { auth, logOut } = props;
+  const { auth, logOut, resetPostData, setPostData } = props;
   const [showCreateModal, setshowCreateModal] = useState(false);
   console.log("dashboard auth data", auth);
   const { displayName, photoURL } = auth;
+
   return (
     <div>
       <Navbar logOut={logOut} />
@@ -31,8 +33,17 @@ function Dashboard(props) {
         </div>
         <div className="dashboard_sidebar dashboard_right_sidebar"></div>
       </div>
-      <FullScreenModal setshow={setshowCreateModal} show={showCreateModal}>
-        <CreatePostModal auth={auth} />
+      <FullScreenModal
+        onClose={(e) => {
+          resetPostData();
+          setshowCreateModal(false);
+        }}
+        onMinus={(e) => {
+          setshowCreateModal(false);
+        }}
+        show={showCreateModal}
+      >
+        <CreatePostModal onAddPost auth={auth} />
       </FullScreenModal>
     </div>
   );
@@ -43,6 +54,8 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
   logOut: (data) => dispatch(logOut(data)),
+  resetPostData: (data) => dispatch(resetPostData(data)),
+  setPostData: (data) => dispatch(setPostData(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

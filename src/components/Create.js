@@ -4,13 +4,14 @@ import { BiCamera, BiUser } from "react-icons/bi";
 import { connect } from "react-redux";
 
 const Create = (props) => {
-  const { createProduct, onCraete, photoURL, displayName } = props;
+  const { createPost, onCraete, auth } = props;
+  const { photoURL, displayName } = auth;
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const handleImage = (e) => {
     setImage(e.target.files[0]);
   };
-  const createPost = () => {
+  const createPostHandler = () => {
     // create({ title, image });
     setTitle("");
     setImage("");
@@ -54,7 +55,8 @@ const Create = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  createProduct: state.createProduct,
+  auth: state.auth,
+  createPost: state.createPost,
 });
 const mapDispatchToProps = (dispatch) => ({});
 

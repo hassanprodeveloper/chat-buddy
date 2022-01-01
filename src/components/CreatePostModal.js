@@ -1,9 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { BiX, BiCamera, BiUser } from "react-icons/bi";
-
+import { connect } from "react-redux";
+import { addPost, setPostData } from "../redux/action/createPost";
 function CreatePostModal(props) {
-  const { auth } = props;
-  const { photoURL, displayName } = auth;
+  const { createPostData, auth, setPostData, addPost } = props;
+  const { photoURL, displayName, uid } = auth;
+  const { title, imageBase64, imageObj } = createPostData;
+  //
+  // const [title, setTitle] = useState(createPostData.title);
+  // const [imageBase64, setImage] = useState(createPostData.imageBase64);
+
+  const handleImage = (e) => {
+    var file = e.target.files[0];
+    console.log("setimagehandler", file);
+
+    var reader = new FileReader();
+    reader.onloadend = function () {
+      setPostData({ imageBase64: reader.result, imageObj: file });
+    };
+    reader.readAsDataURL(file);
+  };
+  //
+  const addPostHandler = () => {
+    if (title || imageBase64) {
+      addPost({
+        displayName,
+        photoURL,
+        uid,
+        imageBase64,
+        imageObj,
+        title,
+      });
+    }
+  };
   return (
     <div className="create-post-modal-main">
       {/* header */}
@@ -33,19 +62,38 @@ function CreatePostModal(props) {
           col={4}
           type="text"
           placeholder="What's on your mind?"
+          value={title}
+          onChange={(e) => setPostData({ title: e.target.value })}
         />
       </div>
       <div className="create-post-modal-add-photo">
-        <button className="create-post-modal-CTA">Upload Photo</button>
-        <div>
-          <span>
-            <BiX className="navbar__icons " />
-          </span>
-          <img src={photoURL} />
-        </div>
+        <label htmlFor="file" className="create-post-modal-CTA  ">
+          {imageBase64 ? "Change " : "Upload "} Photo
+        </label>
+        <input
+          type="file"
+          style={{ display: "none" }}
+          onChange={handleImage}
+          id="file"
+          required
+        />
+        {imageBase64 ? (
+          <div>
+            <span
+              onClick={() => setPostData({ imageBase64: "", imageObj: {} })}
+            >
+              <BiX className="navbar__icons " />
+            </span>
+            <img src={imageBase64} />
+          </div>
+        ) : null}
       </div>
       <div className="create-post-modal-add-post-button-wrapper ">
-        <button className="create-post-modal-CTA create-post-modal-add-post-button ">
+        <button
+          onClick={addPostHandler}
+          disabled={!title && !imageBase64}
+          className="create-post-modal-CTA create-post-modal-add-post-button "
+        >
           Add Post
         </button>
       </div>
@@ -53,4 +101,12 @@ function CreatePostModal(props) {
   );
 }
 
-export default CreatePostModal;
+const mapStateToProps = (state) => ({
+  createPostData: state.createPost,
+});
+const mapDispatchToProps = (dispatch) => ({
+  setPostData: (data) => dispatch(setPostData(data)),
+  addPost: (data) => dispatch(addPost(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreatePostModal);
