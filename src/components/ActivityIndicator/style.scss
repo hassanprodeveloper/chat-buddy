@@ -1,0 +1,41 @@
+$segment-width: 3px;
+$segment-height: 12px;
+$duration: 800;
+$color-start: #0078ca;
+$color-end: #005e9c;
+
+ 
+
+#activity {
+  width: ($segment-height*4);
+  height: ($segment-height*4);
+  
+  .indicator {
+    height: ($segment-height*4);
+  }
+
+  .segment {
+    position: absolute;
+    left: 50%;
+    height: $segment-height;
+    width : $segment-width;
+    border-radius: 40%;
+    -webkit-transform-origin-y: 200%;
+    animation-duration: #{$duration}ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-name: throbber;
+  }
+}
+
+@-webkit-keyframes throbber {
+    0% { background-color: $color-start }
+    100% { background-color: $color-end }
+}
+
+@for $i from 1 through 12 {
+  #activity .segment:nth-child(#{$i}) {
+    transform: rotate(#{30 * $i}deg);
+    animation-delay: #{$i * $duration/12}ms;
+  }
+}

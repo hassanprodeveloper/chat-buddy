@@ -7,7 +7,7 @@ import {
 } from "../../constants/index";
 
 const INITIAL_STATE = {
-  creating: false,
+  creating: "",
   title: "",
   imageBase64: "",
   imageObj: {},
@@ -25,7 +25,7 @@ export default (state = INITIAL_STATE, action) => {
     case CREATE_POST_FAIL:
       return {
         ...state,
-        creating: false,
+        creating: "",
       };
     case CREATE_POST_SET_DATA:
       console.log(

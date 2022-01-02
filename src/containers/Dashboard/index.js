@@ -12,7 +12,7 @@ import { logOut } from "../../redux/action/auth";
 import { setPostData, resetPostData } from "../../redux/action/createPost";
 
 function Dashboard(props) {
-  const { auth, logOut, resetPostData, setPostData } = props;
+  const { auth, logOut, resetPostData, setPostData, creatingPost } = props;
   const [showCreateModal, setshowCreateModal] = useState(false);
   console.log("dashboard auth data", auth);
   const { displayName, photoURL } = auth;
@@ -22,6 +22,7 @@ function Dashboard(props) {
       <Navbar logOut={logOut} />
       <div className="dashboard_main_cont">
         <div className="dashboard_sidebar dashboard_left_sidebar "></div>
+        {/*  */}
         <div className="dashboard_centered_cont">
           <div className="dashboard_centered_main_cont">
             <Create
@@ -29,8 +30,14 @@ function Dashboard(props) {
               photoURL={photoURL}
               onCraete={() => setshowCreateModal(true)}
             />
+            {creatingPost === true ? (
+              <div className="create">
+                <span>Creating Post ...</span>
+              </div>
+            ) : null}
           </div>
         </div>
+        {/*  */}
         <div className="dashboard_sidebar dashboard_right_sidebar"></div>
       </div>
       <FullScreenModal
@@ -43,7 +50,12 @@ function Dashboard(props) {
         }}
         show={showCreateModal}
       >
-        <CreatePostModal onAddPost auth={auth} />
+        <CreatePostModal
+          setshowCreateModal={(e) => {
+            setshowCreateModal(false);
+          }}
+          auth={auth}
+        />
       </FullScreenModal>
     </div>
   );
@@ -51,6 +63,7 @@ function Dashboard(props) {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   loading: state.auth.loading,
+  creatingPost: state.createPost.creating,
 });
 const mapDispatchToProps = (dispatch) => ({
   logOut: (data) => dispatch(logOut(data)),

@@ -3,7 +3,8 @@ import { BiX, BiCamera, BiUser } from "react-icons/bi";
 import { connect } from "react-redux";
 import { addPost, setPostData } from "../redux/action/createPost";
 function CreatePostModal(props) {
-  const { createPostData, auth, setPostData, addPost } = props;
+  const { createPostData, auth, setPostData, addPost, setshowCreateModal } =
+    props;
   const { photoURL, displayName, uid } = auth;
   const { title, imageBase64, imageObj } = createPostData;
   //
@@ -31,6 +32,7 @@ function CreatePostModal(props) {
         imageObj,
         title,
       });
+      setshowCreateModal();
     }
   };
   return (
