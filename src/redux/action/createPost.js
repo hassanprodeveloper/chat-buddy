@@ -56,7 +56,7 @@ export const addPost = (data) => {
                 user_image: photoURL,
                 post_image: url,
                 title,
-                currentTime: firebase.firestore.FieldValue.serverTimestamp(),
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
               });
 
               await db

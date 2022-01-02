@@ -7,10 +7,10 @@ import { connect } from "react-redux";
 import Create from "../../components/Create";
 import FullScreenModal from "../../components/FullScreenModal";
 import CreatePostModal from "../../components/CreatePostModal";
+import Posts from "../../components/Posts";
 //
 import { logOut } from "../../redux/action/auth";
 import { setPostData, resetPostData } from "../../redux/action/createPost";
-
 function Dashboard(props) {
   const { auth, logOut, resetPostData, setPostData, creatingPost } = props;
   const [showCreateModal, setshowCreateModal] = useState(false);
@@ -28,13 +28,16 @@ function Dashboard(props) {
             <Create
               displayName={displayName}
               photoURL={photoURL}
-              onCraete={() => setshowCreateModal(true)}
+              onCraete={() => setshowCreateModal(creatingPost !== true)}
             />
             {creatingPost === true ? (
               <div className="create">
                 <span>Creating Post ...</span>
               </div>
             ) : null}
+            <div className="create">
+              <Posts />
+            </div>
           </div>
         </div>
         {/*  */}
