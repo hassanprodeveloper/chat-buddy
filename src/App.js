@@ -21,7 +21,6 @@ import { get } from "./services/localStorage";
 function App(props) {
   const { logOut, auth } = props;
 
-  console.log("App auth data", auth);
   return (
     <RouteWrapper>
       <Switch>

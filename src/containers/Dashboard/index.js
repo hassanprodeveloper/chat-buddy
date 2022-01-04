@@ -14,7 +14,6 @@ import { setPostData, resetPostData } from "../../redux/action/createPost";
 function Dashboard(props) {
   const { auth, logOut, resetPostData, setPostData, creatingPost } = props;
   const [showCreateModal, setshowCreateModal] = useState(false);
-  console.log("dashboard auth data", auth);
   const { displayName, photoURL } = auth;
 
   return (
@@ -35,9 +34,7 @@ function Dashboard(props) {
                 <span>Creating Post ...</span>
               </div>
             ) : null}
-            <div className="create">
-              <Posts />
-            </div>
+            <Posts />
           </div>
         </div>
         {/*  */}

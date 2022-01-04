@@ -28,10 +28,6 @@ export default (state = INITIAL_STATE, action) => {
         creating: "",
       };
     case CREATE_POST_SET_DATA:
-      console.log(
-        "CREATE_POST_SET_DATA reducer action.payload",
-        action.payload
-      );
       return {
         ...state,
         ...action.payload,

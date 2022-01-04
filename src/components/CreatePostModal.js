@@ -13,8 +13,6 @@ function CreatePostModal(props) {
 
   const handleImage = (e) => {
     var file = e.target.files[0];
-    console.log("setimagehandler", file);
-
     var reader = new FileReader();
     reader.onloadend = function () {
       setPostData({ imageBase64: reader.result, imageObj: file });

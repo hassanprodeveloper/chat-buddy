@@ -38,10 +38,9 @@ export const addPost = (data) => {
         "state_changed",
         (snp) => {
           let progress = (snp.bytesTransferred / snp.totalBytes) * 100;
-          console.log("on create post progress", progress);
         },
         (err) => {
-          console.log(err);
+          console.log("on create post err", err);
         },
         () => {
           //success function/complete function

@@ -27,7 +27,6 @@ function Signup(props) {
   //
   const setimageHandler = (e) => {
     var file = e.target.files[0];
-    console.log("setimagehandler", file);
 
     var reader = new FileReader();
     reader.onloadend = function () {
@@ -50,12 +49,6 @@ function Signup(props) {
       setpassword("");
     }
   }, [p1, p2]);
-  console.log("register => name, email, password, image ", {
-    name,
-    email,
-    password,
-    image,
-  });
   return (
     <div className="login-form">
       <div className="radius5 form-container">

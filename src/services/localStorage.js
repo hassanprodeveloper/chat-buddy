@@ -11,7 +11,6 @@ export const set = (e) => {
 export const get = (e) => {
   const { key, data } = e;
   const jsonData = localStorage.getItem(`${storageId}${key}`);
-  console.log("local storage get", JSON.parse(jsonData));
   return JSON.parse(jsonData);
 };
 export const remove = (e) => {

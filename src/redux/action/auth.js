@@ -29,10 +29,8 @@ export const loginHandler = (data) => {
         uid: res.user.uid,
       };
       set({ key: "auth", data: userInfo });
-      console.log("loginhandler res", res);
       window.location.reload();
     } catch (error) {
-      console.log("loginhandler res", error);
       dispatch({ type: LOGIN_FAIL, payload: error });
     }
   };
@@ -61,10 +59,9 @@ export const register = (data) => {
         "state_changed",
         (snp) => {
           let progress = (snp.bytesTransferred / snp.totalBytes) * 100;
-          console.log("on create post progress", progress);
         },
         (err) => {
-          console.log(err);
+          console.log("register catch", err);
         },
         () => {
           //success function/complete function

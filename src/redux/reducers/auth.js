@@ -20,7 +20,6 @@ export default (state = INITIAL_STATE, action) => {
         loading: true,
       };
     case LOGIN_SUCCESS:
-      console.log("LOGIN_SUCCESS LOGIN_SUCCESS", action.payload);
       let loginUer = {
         loading: false,
         ...action.payload,

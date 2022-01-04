@@ -31,7 +31,6 @@ export const localStorage_auth = () => {
     : {};
 };
 export let USER = localStorage_auth().uid;
-console.log("USERUSERUSER", USER);
 // auth route component
 // default router function
 function Index({ children, auth, login, logOut }) {

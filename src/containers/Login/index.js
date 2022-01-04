@@ -22,10 +22,8 @@ function Login(props) {
       loginHandler({ email, password });
     } else {
       validateMessageHandler();
-      console.log("onsubmit email and password empty", email, password);
     }
   };
-  console.log("login auth data", auth);
   return (
     <div className="login-form">
       <div className="radius5 form-container">

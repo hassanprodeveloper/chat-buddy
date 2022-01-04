@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
+import "./style.css";
 import { auth, db, storage } from "../../config";
 import Card from "./Card";
 export default function Posts() {
@@ -23,7 +24,11 @@ export default function Posts() {
       });
   }, []);
   console.log("posts component posts", posts);
-  return posts.map((item, index) => {
-    return <Card item={item} />;
-  });
+  return (
+    <Fragment>
+      {posts.map((post, index) => {
+        return <Card post={post} />;
+      })}
+    </Fragment>
+  );
 }
