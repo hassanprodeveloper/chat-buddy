@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BiX, BiCamera, BiUser } from "react-icons/bi";
 import { connect } from "react-redux";
-import { addPost, setPostData } from "../redux/action/createPost";
+import { addPost, setPostData } from "../redux/action/post";
 function CreatePostModal(props) {
   const { createPostData, auth, setPostData, addPost, setshowCreateModal } =
     props;
@@ -102,7 +102,7 @@ function CreatePostModal(props) {
 }
 
 const mapStateToProps = (state) => ({
-  createPostData: state.createPost,
+  createPostData: state.post,
 });
 const mapDispatchToProps = (dispatch) => ({
   setPostData: (data) => dispatch(setPostData(data)),

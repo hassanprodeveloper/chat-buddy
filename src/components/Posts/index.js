@@ -1,8 +1,11 @@
 import React, { Fragment, useState, useEffect } from "react";
 import "./style.css";
 import { auth, db, storage } from "../../config";
+import { connect } from "react-redux";
 import Card from "./Card";
-export default function Posts() {
+
+function Posts(props) {
+  const { user } = props;
   const [posts, setposts] = useState([]);
   useEffect(() => {
     // fetch posts from firebase
@@ -27,8 +30,14 @@ export default function Posts() {
   return (
     <Fragment>
       {posts.map((post, index) => {
-        return <Card post={post} />;
+        return <Card user={user} post={post} />;
       })}
     </Fragment>
   );
 }
+const mapStateToProps = (state) => ({
+  user: state.auth,
+});
+const mapDispatchToProps = (dispatch) => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Posts);

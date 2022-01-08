@@ -39,7 +39,7 @@ const Create = (props) => {
         </p>
       </div>
       <span className="create__second-icon cursorPointer">
-        <label htmlFor="file" onClick={onCraete} className="cursorPointer">
+        <label onClick={onCraete} className="cursorPointer">
           <BiCamera className="create__second-camera-icon" size={30} />
         </label>
         {/* <input
@@ -56,7 +56,7 @@ const Create = (props) => {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  createPost: state.createPost,
+  createPost: state.post,
 });
 const mapDispatchToProps = (dispatch) => ({});
 

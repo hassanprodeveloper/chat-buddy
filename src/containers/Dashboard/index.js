@@ -10,7 +10,7 @@ import CreatePostModal from "../../components/CreatePostModal";
 import Posts from "../../components/Posts";
 //
 import { logOut } from "../../redux/action/auth";
-import { setPostData, resetPostData } from "../../redux/action/createPost";
+import { setPostData, resetPostData } from "../../redux/action/post";
 function Dashboard(props) {
   const { auth, logOut, resetPostData, setPostData, creatingPost } = props;
   const [showCreateModal, setshowCreateModal] = useState(false);
@@ -63,7 +63,7 @@ function Dashboard(props) {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   loading: state.auth.loading,
-  creatingPost: state.createPost.creating,
+  creatingPost: state.post.creating,
 });
 const mapDispatchToProps = (dispatch) => ({
   logOut: (data) => dispatch(logOut(data)),
