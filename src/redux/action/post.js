@@ -50,6 +50,7 @@ export const addPost = (data) => {
             .getDownloadURL()
             .then(async (url) => {
               await db.collection("posts").doc(imageID).set({
+                id: imageID,
                 user_name: displayName,
                 user_uid: uid,
                 user_image: photoURL,
@@ -66,6 +67,10 @@ export const addPost = (data) => {
                 });
               console.log("created post 😄");
               dispatch({ type: CREATE_POST_SUCCESS });
+            })
+            .catch((error) => {
+              console.log("storage post catch error", error);
+              dispatch({ type: CREATE_POST_FAIL, payload: error });
             });
         }
       );

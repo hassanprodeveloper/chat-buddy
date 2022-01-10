@@ -7,7 +7,7 @@ import {
   SIGNUP_FAIL,
   LOG_OUT,
 } from "../../constants/index";
-import { auth, db, storage } from "../../config";
+import { auth, db, storage, firebase } from "../../config";
 import { set, get, remove } from "../../services/localStorage";
 
 // login
@@ -17,6 +17,7 @@ export const loginHandler = (data) => {
       const { email, password } = data;
       dispatch({ type: AUTH_REQUEST });
       const res = await auth.signInWithEmailAndPassword(email, password);
+      console.log("auth action login user data", res);
       dispatch({ type: LOGIN_SUCCESS, payload: res.user });
       let userInfo = {
         displayName: res.user.displayName,
@@ -35,6 +36,7 @@ export const loginHandler = (data) => {
     }
   };
 };
+// logout
 export const logOut = (data) => {
   return (dispatch) => {
     dispatch({ type: LOG_OUT, payload: {} });
@@ -50,6 +52,7 @@ export const register = (data) => {
     try {
       dispatch({ type: AUTH_REQUEST });
       const res = await auth.createUserWithEmailAndPassword(email, password);
+      console.log("auth action register user data", res);
       let uid = res.user.uid;
       const upload = storage
         .ref(`users`)
@@ -65,6 +68,8 @@ export const register = (data) => {
         },
         () => {
           //success function/complete function
+          const firebaseTimestemp =
+            firebase.firestore.FieldValue.serverTimestamp();
           storage
             .ref("users")
             .child(uid)
@@ -84,22 +89,22 @@ export const register = (data) => {
                 data: {
                   displayName: name,
                   photoURL: url,
-                  createdAt: res.user.createdAt,
+                  createdAt: firebaseTimestemp,
                   email: res.user.email,
                   emailVerified: res.user.emailVerified,
                   phoneNumber: res.user.phoneNumber,
                   uid: res.user.uid,
                 },
               });
-              await db
-                .collection("users")
-                .doc(uid)
-                .set({
-                  userInfo: {
-                    displayName: name,
-                    photoURL: url,
-                  },
-                });
+              await db.collection("users").doc(uid).set({
+                displayName: name,
+                photoURL: url,
+                createdAt: firebaseTimestemp,
+                email: res.user.email,
+                emailVerified: res.user.emailVerified,
+                phoneNumber: res.user.phoneNumber,
+                uid: res.user.uid,
+              });
               window.location.reload();
             });
         }

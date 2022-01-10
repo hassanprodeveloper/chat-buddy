@@ -42,6 +42,9 @@ function Card(props) {
     if (interval > 1) {
       return Math.ceil(interval) + " minutes ago";
     }
+    if (interval < 0) {
+      return " just now";
+    }
     return Math.ceil(seconds) + " seconds ago";
   }
 
@@ -65,6 +68,12 @@ function Card(props) {
         console.log("handle like .catch ", err);
         setliked(false);
       });
+    await db
+      .collection("users")
+      .doc(user.uid)
+      .update({
+        likedPosts: firebase.firestore.FieldValue.arrayUnion(id),
+      });
   };
   //
   const handleDislike = async () => {
@@ -81,6 +90,12 @@ function Card(props) {
       .catch((err) => {
         console.log("handle dislike .catch ", err);
         setliked(true);
+      });
+    await db
+      .collection("users")
+      .doc(user.uid)
+      .update({
+        likedPosts: firebase.firestore.FieldValue.arrayRemove(id),
       });
   };
   //
@@ -99,6 +114,12 @@ function Card(props) {
         })
         .then((e) => {
           setcommentInput("");
+        });
+      await db
+        .collection("users")
+        .doc(user.uid)
+        .update({
+          postedComments: firebase.firestore.FieldValue.arrayUnion(id),
         });
       // .catch((err) => {
       //   console.log("handle like .catch ", err);
@@ -184,6 +205,8 @@ function Card(props) {
     }
   };
   //
+  console.log("card.js createdAt", createdAt);
+  console.log("card.js post", post);
   return (
     <div className="posts" key={id}>
       <div className="post__header">
@@ -192,7 +215,7 @@ function Card(props) {
           <div>
             <div className="post__header_user_name">{user_name}</div>
             <div className="post__header_time">
-              {timeSince(createdAt.seconds)}
+              {timeSince(createdAt ? createdAt.seconds : 0)}
             </div>
           </div>
         </div>

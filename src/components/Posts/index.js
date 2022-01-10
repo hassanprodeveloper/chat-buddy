@@ -29,9 +29,15 @@ function Posts(props) {
   console.log("posts component posts", posts);
   return (
     <Fragment>
-      {posts.map((post, index) => {
-        return <Card user={user} post={post} />;
-      })}
+      {posts.length > 0 ? (
+        posts.map((post, index) => {
+          return <Card user={user} post={post} />;
+        })
+      ) : (
+        <div className="create flex-center">
+          <h4>Be the one to post.</h4>
+        </div>
+      )}
     </Fragment>
   );
 }
