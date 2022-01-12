@@ -17,7 +17,9 @@ function Card(props) {
   const [liked, setliked] = useState(false);
   const [likes, setlikes] = useState({});
   const [comments, setcomments] = useState([]);
+  const [commentsToShow, setcommentsToShow] = useState([]);
   const [showCommentBox, setshowCommentBox] = useState(false);
+  const [postingComment, setpostingComment] = useState(false);
   //
   function timeSince(sec = 0) {
     let date = new Date(sec * 1000);
@@ -100,8 +102,11 @@ function Card(props) {
   };
   //
   const placeComment = async () => {
-    if (commentInput) {
+    let commentText = commentInput;
+    if (commentText) {
       let commentId = Math.random().toString(36).slice(2);
+      setcommentInput("");
+      setpostingComment(true);
       await postRef
         .collection("comments")
         .doc(commentId)
@@ -110,10 +115,15 @@ function Card(props) {
           uid: user.uid,
           displayName: user.displayName,
           photoURL: user.photoURL,
-          comment: commentInput,
+          comment: commentText,
         })
         .then((e) => {
+          setpostingComment(false);
           setcommentInput("");
+        })
+        .catch(() => {
+          setpostingComment(false);
+          setcommentInput(commentText);
         });
       await db
         .collection("users")
@@ -121,10 +131,6 @@ function Card(props) {
         .update({
           postedComments: firebase.firestore.FieldValue.arrayUnion(id),
         });
-      // .catch((err) => {
-      //   console.log("handle like .catch ", err);
-      //   setliked(false);
-      // });
     }
   };
   //
@@ -161,6 +167,11 @@ function Card(props) {
       });
   }, [id]);
   //
+  useMemo(() => {
+    if (commentsToShow.length < 1 && comments.length > 0) {
+      setcommentsToShow(comments.slice(0, 2));
+    }
+  }, [comments]);
   // fetch comments in real time
   useEffect(() => {
     postRef
@@ -225,9 +236,11 @@ function Card(props) {
         <div className=" post__header_userinfo_wrapper ">
           <span className="posts__header-name">{title}</span>
         </div>
-        <div className="post__image_wrapper">
-          <img src={post_image} alt="" />
-        </div>
+        {post_image ? (
+          <div className="post__image_wrapper">
+            <img src={post_image} alt="" />
+          </div>
+        ) : null}
       </div>
       <div className="post_reaction_main_wrapper">
         <button
@@ -254,16 +267,36 @@ function Card(props) {
         <>
           <hr />
           <div className="post_comment_main_wrapper">
-            {comments.slice(0, 2).map((item, index) => {
+            {commentsToShow.map((item, index) => {
               return (
-                <CommentCard timeSince={(e) => timeSince(e)} item={item} />
+                <CommentCard
+                  postingComment={postingComment}
+                  timeSince={(e) => timeSince(e)}
+                  item={item}
+                />
               );
             })}
             {comments.length > 2 ? (
               <div className="ph-1 p-_5 align-horizontal-end">
-                <button>Show All Comments</button>
+                <button
+                  onClick={() =>
+                    setcommentsToShow(
+                      commentsToShow.length < 3
+                        ? comments
+                        : comments.slice(0, 2)
+                    )
+                  }
+                >
+                  Show {commentsToShow.length < 3 ? "All" : "Less"} Comments
+                </button>
               </div>
             ) : null}
+            {postingComment ? (
+              <div className="ph-1 p-_5 ">
+                <span>Commenting...</span>
+              </div>
+            ) : null}
+
             <div className="flex-row post_comment_input">
               <input
                 value={commentInput}

@@ -7,11 +7,14 @@ import Card from "./Card";
 function Posts(props) {
   const { user } = props;
   const [posts, setposts] = useState([]);
+  const [loading, setloading] = useState(false);
   useEffect(() => {
+    setloading(posts.length < 1);
     // fetch posts from firebase
     db.collection("posts")
       .orderBy("createdAt", "desc")
       .onSnapshot((snp) => {
+        if (loading) setloading(false);
         setposts(
           snp.docs.map((doc) => ({
             id: doc.id,
@@ -31,8 +34,12 @@ function Posts(props) {
     <Fragment>
       {posts.length > 0 ? (
         posts.map((post, index) => {
-          return <Card user={user} post={post} />;
+          return <Card key={index} user={user} post={post} />;
         })
+      ) : loading ? (
+        <div className="create flex-center">
+          <span>Loading ...</span>
+        </div>
       ) : (
         <div className="create flex-center">
           <h4>Be the one to post.</h4>

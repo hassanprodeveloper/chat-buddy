@@ -62,6 +62,7 @@ export const register = (data) => {
         "state_changed",
         (snp) => {
           let progress = (snp.bytesTransferred / snp.totalBytes) * 100;
+          console.log("uploading profile pic progress", progress);
         },
         (err) => {
           console.log("register catch", err);
@@ -84,6 +85,7 @@ export const register = (data) => {
                 payload: { ...res.user, ...userInfo },
               });
               res.user.updateProfile(userInfo);
+              console.log("register auth data res", res);
               set({
                 key: "auth",
                 data: {
@@ -105,7 +107,7 @@ export const register = (data) => {
                 phoneNumber: res.user.phoneNumber,
                 uid: res.user.uid,
               });
-              window.location.reload();
+              // window.location.reload();
             });
         }
       );
