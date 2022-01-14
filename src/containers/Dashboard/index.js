@@ -11,6 +11,9 @@ import Posts from "../../components/Posts";
 //
 import { logOut } from "../../redux/action/auth";
 import { setPostData, resetPostData } from "../../redux/action/post";
+//
+import RightCont from "../../components/DashboardRight";
+//
 function Dashboard(props) {
   const { auth, logOut, resetPostData, setPostData, creatingPost } = props;
   const [showCreateModal, setshowCreateModal] = useState(false);
@@ -38,7 +41,9 @@ function Dashboard(props) {
           </div>
         </div>
         {/*  */}
-        <div className="dashboard_sidebar dashboard_right_sidebar"></div>
+        <div className="dashboard_sidebar dashboard_right_sidebar">
+          <RightCont />
+        </div>
       </div>
       <FullScreenModal
         onClose={(e) => {

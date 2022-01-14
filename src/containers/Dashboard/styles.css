@@ -14,9 +14,9 @@
   flex: 2;
   justify-content: center;
 }
-/* .dashboard_right_sidebar {
-  background: yellow;
-} */
+.dashboard_right_sidebar {
+  padding-right: 1rem;
+}
 .dashboard_centered_main_cont {
   width: 80%;
 }

@@ -113,6 +113,19 @@ textarea:focus {
   align-items: center;
   justify-content: flex-end;
 }
+.align-vertical-center {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  /* justify-content: flex-end; */
+}
+.cta_button {
+  background: var(--primary);
+  color: var(--white);
+  padding: 0.5rem;
+  border-radius: 0.2rem;
+  font-size: 1.2rem;
+}
 /*  ======================================  */
 
 .navbar {

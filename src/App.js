@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 //
 import "./App.css";
 import * as Pages from "./containers";
+import "antd/dist/antd.css";
 import {
   // BrowserRouter as Router,
   Switch,
@@ -16,11 +17,20 @@ import RouteWrapper, {
   PublicRoute,
 } from "./router/index";
 import { logOut } from "./redux/action/auth";
+import { setCurrentUser } from "./redux/action/global";
 import { get } from "./services/localStorage";
+import { db } from "./config";
 //
 function App(props) {
-  const { logOut, auth } = props;
+  const { logOut, auth, setCurrentUser } = props;
 
+  useEffect(() => {
+    if (auth.uid) {
+      db.collection("users")
+        .doc(auth.uid)
+        .onSnapshot((snap) => setCurrentUser(snap.data()));
+    }
+  }, [auth]);
   return (
     <RouteWrapper>
       <Switch>
@@ -33,6 +43,12 @@ function App(props) {
         <PrivateRoute path="/dashboard" redirect="/login">
           <Pages.Dashboard />
         </PrivateRoute>
+        <PrivateRoute path="/profile" redirect="/login">
+          <Pages.Profile />
+        </PrivateRoute>
+        <PrivateRoute path="/messager" redirect="/login">
+          <Pages.Messenger />
+        </PrivateRoute>
         <Redirect from="/" to="/dashboard" />
       </Switch>
     </RouteWrapper>
@@ -44,6 +60,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
   logOut: (data) => dispatch(logOut(data)),
+  setCurrentUser: (data) => dispatch(setCurrentUser(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,0 +1,41 @@
+.dashboard_right_wrapper {
+  flex-direction: column;
+}
+.dashboard_right_tab_header {
+  width: 100%;
+  padding: 0.2rem;
+  display: flex;
+}
+.dashboard_right_tab {
+  padding: 0.7rem;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+}
+.dashboard_right_tab_body {
+  flex: 1;
+  background: var(--background-light);
+  border-radius: 0.5rem;
+  padding: 0.7rem;
+  margin-top: 0.7rem;
+}
+/* find friends styling */
+.find_friends_user_card_photo {
+  width: 55px;
+  height: 55px;
+}
+.find_friends_user_card_info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.add_friend_button {
+  background: var(--primary);
+  padding: 0.5rem;
+  border-radius: 0.2rem;
+}
+.add_friend_button_icon {
+  color: var(--white);
+}

@@ -5,6 +5,7 @@ import { FaRegHeart, FaHeart, FaRegComment } from "react-icons/fa";
 import { db, firebase } from "../../config";
 import CommentCard from "./CommentCard";
 import UserIcon from "./UserIcon";
+import { timeSince } from "../../services/calculateTime";
 
 function Card(props) {
   const { post, key, user } = props;
@@ -20,35 +21,6 @@ function Card(props) {
   const [commentsToShow, setcommentsToShow] = useState([]);
   const [showCommentBox, setshowCommentBox] = useState(false);
   const [postingComment, setpostingComment] = useState(false);
-  //
-  function timeSince(sec = 0) {
-    let date = new Date(sec * 1000);
-    var seconds = Math.ceil((new Date() - date) / 1000);
-    var interval = seconds / 31536000;
-    if (interval > 1) {
-      return Math.ceil(interval) + " years ago";
-    }
-    interval = seconds / 2592000;
-    if (interval > 1) {
-      return Math.ceil(interval) + " months ago";
-    }
-    interval = seconds / 86400;
-    if (interval > 1) {
-      return Math.ceil(interval) + " days ago";
-    }
-    interval = seconds / 3600;
-    if (interval > 1) {
-      return Math.ceil(interval) + " hours ago";
-    }
-    interval = seconds / 60;
-    if (interval > 1) {
-      return Math.ceil(interval) + " minutes ago";
-    }
-    if (interval < 0) {
-      return " just now";
-    }
-    return Math.ceil(seconds) + " seconds ago";
-  }
 
   const handleLike = async () => {
     console.log("handle like working");
@@ -242,6 +214,7 @@ function Card(props) {
           </div>
         ) : null}
       </div>
+      <hr />
       <div className="post_reaction_main_wrapper">
         <button
           onClick={toggleLike}
