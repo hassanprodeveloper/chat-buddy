@@ -1,0 +1,12 @@
+.site-layout {
+  transition: all 0.2s;
+}
+.cs-message__content,
+.cs-conversation-header,
+.cs-conversation__name {
+  font-size: 1.5rem !important;
+}
+.cs-conversation__unread,
+.cs-conversation__info {
+  font-size: 1rem !important;
+}

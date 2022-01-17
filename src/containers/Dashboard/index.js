@@ -13,9 +13,18 @@ import { logOut } from "../../redux/action/auth";
 import { setPostData, resetPostData } from "../../redux/action/post";
 //
 import RightCont from "../../components/DashboardRight";
+import { Affix } from "antd";
+
 //
 function Dashboard(props) {
-  const { auth, logOut, resetPostData, setPostData, creatingPost } = props;
+  const {
+    currentUser,
+    auth,
+    logOut,
+    resetPostData,
+    setPostData,
+    creatingPost,
+  } = props;
   const [showCreateModal, setshowCreateModal] = useState(false);
   const { displayName, photoURL } = auth;
 
@@ -42,7 +51,9 @@ function Dashboard(props) {
         </div>
         {/*  */}
         <div className="dashboard_sidebar dashboard_right_sidebar">
-          <RightCont />
+          {/* <Affix offsetTop={50}> */}
+          {currentUser.uid ? <RightCont /> : null}
+          {/* </Affix> */}
         </div>
       </div>
       <FullScreenModal
@@ -69,6 +80,7 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   loading: state.auth.loading,
   creatingPost: state.post.creating,
+  currentUser: state.global.currentUser,
 });
 const mapDispatchToProps = (dispatch) => ({
   logOut: (data) => dispatch(logOut(data)),

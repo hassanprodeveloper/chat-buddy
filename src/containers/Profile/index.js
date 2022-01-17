@@ -2,6 +2,7 @@ import React from "react";
 import { logOut } from "../../redux/action/auth";
 import { connect } from "react-redux";
 import "./styles.css";
+import DashboardRight from "../../components/DashboardRight";
 //
 
 //
@@ -15,7 +16,7 @@ function Profile(props) {
         <div className="dashboard_centered_main_cont">
           <button onClick={logOut}>Log Out</button>{" "}
           <div className="create">
-            <span>user</span>
+            <DashboardRight />
           </div>
         </div>
       </div>

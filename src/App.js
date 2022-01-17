@@ -17,20 +17,23 @@ import RouteWrapper, {
   PublicRoute,
 } from "./router/index";
 import { logOut } from "./redux/action/auth";
-import { setCurrentUser } from "./redux/action/global";
+import { setCurrentUser, getAllUsers } from "./redux/action/global";
 import { get } from "./services/localStorage";
 import { db } from "./config";
 //
 function App(props) {
-  const { logOut, auth, setCurrentUser } = props;
+  const { logOut, auth, setCurrentUser, getAllUsers } = props;
 
   useEffect(() => {
     if (auth.uid) {
       db.collection("users")
         .doc(auth.uid)
         .onSnapshot((snap) => setCurrentUser(snap.data()));
+      // fetch all users real time from firebase
+      getAllUsers(auth.uid);
     }
   }, [auth]);
+
   return (
     <RouteWrapper>
       <Switch>
@@ -61,6 +64,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   logOut: (data) => dispatch(logOut(data)),
   setCurrentUser: (data) => dispatch(setCurrentUser(data)),
+  getAllUsers: (uid) => dispatch(getAllUsers(uid)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
